@@ -18,8 +18,12 @@ A Minecraft server (Spigot) plugin to instantly break blocks!
 <br>
 
 ## Screenshots:
-The help page:
+**The help page:**
+
 ![Help page](screenshots/helppage.png)
 
-Toggling instabreak and block drops:
+<br>
+
+**Toggling instabreak and block drops:**
+
 ![Toggle instabreak and block drops message](screenshots/toggleandtoggledrops.png)
