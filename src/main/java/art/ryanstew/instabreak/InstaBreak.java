@@ -14,7 +14,7 @@ public final class InstaBreak extends JavaPlugin
 {
 
     private final List<Player> enabledPlayers = new ArrayList<>();
-    private final List<Player> dropsEnabledPlayers = new ArrayList<>();
+    private final List<Player> dropsDisabledPlayers = new ArrayList<>();
 
 
     @Override
@@ -51,20 +51,20 @@ public final class InstaBreak extends JavaPlugin
 
     public boolean playerHasDropsEnabled(Player player)
     {
-        return dropsEnabledPlayers.contains(player);
+        return !dropsDisabledPlayers.contains(player);
     }
 
 
     public void setPlayerEnabled(Player player, boolean enable)
     {
-        if (enable) enabledPlayers.add(player);
-        else enabledPlayers.remove(player);
+        if (enable && !enabledPlayers.contains(player)) enabledPlayers.add(player);
+        else if (!enable) enabledPlayers.remove(player);
     }
 
 
     public void setPlayerDropsEnabled(Player player, boolean enable)
     {
-        if (enable) dropsEnabledPlayers.add(player);
-        else dropsEnabledPlayers.remove(player);
+        if (!enable && !dropsDisabledPlayers.contains(player)) dropsDisabledPlayers.add(player);
+        else if (enable) dropsDisabledPlayers.remove(player);
     }
 }

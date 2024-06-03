@@ -31,11 +31,11 @@ public class InstaBreakCommand implements CommandExecutor
 
         if (prefix != null)
         {
-            Pattern pattern = Pattern.compile("^(?:&\\w)+");
+            Pattern pattern = Pattern.compile("(^(?:&\\w)+).+");
             Matcher matcher = pattern.matcher(prefix);
 
             if (matcher.matches())
-                colorCode = matcher.group(0);
+                colorCode = matcher.group(1);
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -47,12 +47,9 @@ public class InstaBreakCommand implements CommandExecutor
         {
             stringBuilder
                     .append("\n").append("&8- ").append("&7/instabreak toggle")
-                    .append("\n").append("&8- ").append("&7/instabreak <on/enable>")
-                    .append("\n").append("&8- ").append("&7/instabreak <off/disable>")
-                    .append("\n")
+                    .append("\n").append("&8- ").append("&7/instabreak <enable/disable>")
                     .append("\n").append("&8- ").append("&7/instabreak toggledrops")
-                    .append("\n").append("&8- ").append("&7/instabreak enabledrops")
-                    .append("\n").append("&8- ").append("&7/instabreak disabledrops");
+                    .append("\n").append("&8- ").append("&7/instabreak <enabledrops/disabledrops>");
         }
 
         if (sender.hasPermission(RELOAD_PERMISSION))
@@ -77,11 +74,9 @@ public class InstaBreakCommand implements CommandExecutor
     /*
         /instabreak and /instabreak help
         /instabreak toggle
-        /instabreak <on/enable>
-        /instabreak <off/disable>
+        /instabreak <enable/disable>
         /instabreak toggledrops
-        /instabreak enabledrops
-        /instabraek disabledrops
+        /instabreak <enabledrops/disabledrops>
         /instabreak reload
      */
     @Override
@@ -114,14 +109,14 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("enable"))
+        if (args[0].equalsIgnoreCase("enable"))
         {
             plugin.setPlayerEnabled(player, true);
             sendSetEnabledMessage(player, true);
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("disable"))
+        if (args[0].equalsIgnoreCase("disable"))
         {
             plugin.setPlayerEnabled(player, false);
             sendSetEnabledMessage(player, false);
