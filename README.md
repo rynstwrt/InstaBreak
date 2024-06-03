@@ -1,5 +1,10 @@
 # InstaBreak
+![InstaBreak logo](assets/icons/resourceicon.png)
+
+
 A Minecraft server (Spigot) plugin to instantly break blocks!
+
+The Spigot page for InstaBreak can be found [here](https://www.spigotmc.org/resources/instabreak.117100/).
 
 <br>
 
