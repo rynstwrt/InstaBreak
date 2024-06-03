@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 public class InstaBreakCommand implements CommandExecutor
 {
 
-    private static final String RELOAD_PERMISSION = "instabreak.reload";
-
     private final InstaBreak plugin;
 
 
@@ -55,7 +53,7 @@ public class InstaBreakCommand implements CommandExecutor
                     .append("\n&8- &7/instabreak <toggledrops/enabledrops/disabledrops>");
         }
 
-        if (sender.hasPermission(RELOAD_PERMISSION))
+        if (sender.hasPermission(InstaBreak.RELOAD_PERMISSION))
             stringBuilder.append("\n&8- &7/instabreak reload");
 
         if (isPlayer)
@@ -102,7 +100,7 @@ public class InstaBreakCommand implements CommandExecutor
         }
 
         // /instabreak reload
-        if (args[0].equalsIgnoreCase("reload") && sender.hasPermission(RELOAD_PERMISSION))
+        if (args[0].equalsIgnoreCase("reload") && sender.hasPermission(InstaBreak.RELOAD_PERMISSION))
         {
             plugin.reloadConfig();
             plugin.sendFormattedMessage(sender, "&aSuccessfully reloaded the config!", true);

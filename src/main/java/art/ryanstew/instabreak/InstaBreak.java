@@ -2,6 +2,7 @@ package art.ryanstew.instabreak;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +13,8 @@ import java.util.Objects;
 
 public final class InstaBreak extends JavaPlugin
 {
+
+    public static final String RELOAD_PERMISSION = "instabreak.reload";
 
     private final List<Player> enabledPlayers = new ArrayList<>();
     private final List<Player> dropsDisabledPlayers = new ArrayList<>();
@@ -26,7 +29,9 @@ public final class InstaBreak extends JavaPlugin
 
         getServer().getPluginManager().registerEvents(new InstaBreakEventHandler(this), this);
 
-        Objects.requireNonNull(getCommand("instabreak")).setExecutor(new InstaBreakCommand(this));
+        PluginCommand command = Objects.requireNonNull(getCommand("instabreak"));
+        command.setExecutor(new InstaBreakCommand(this));
+        command.setTabCompleter(new InstaBreakTabCompleter());
     }
 
 
