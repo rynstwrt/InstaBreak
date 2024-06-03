@@ -13,7 +13,8 @@ import java.util.Objects;
 public final class InstaBreak extends JavaPlugin
 {
 
-    private List<Player> enabledPlayers = new ArrayList<>();
+    private final List<Player> enabledPlayers = new ArrayList<>();
+    private final List<Player> dropsEnabledPlayers = new ArrayList<>();
 
 
     @Override
@@ -33,9 +34,11 @@ public final class InstaBreak extends JavaPlugin
     public void onDisable() { }
 
 
-    public void sendFormattedMessage(CommandSender sender, String message)
+    public void sendFormattedMessage(CommandSender sender, String message, boolean prefixed)
     {
-        message = String.format("%s %s", getConfig().getString("prefix"), message);
+        if (prefixed)
+            message = String.format("%s %s", getConfig().getString("prefix"), message);
+
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
@@ -46,11 +49,22 @@ public final class InstaBreak extends JavaPlugin
     }
 
 
+    public boolean playerHasDropsEnabled(Player player)
+    {
+        return dropsEnabledPlayers.contains(player);
+    }
+
+
     public void setPlayerEnabled(Player player, boolean enable)
     {
-        if (enable)
-            enabledPlayers.add(player);
-        else
-            enabledPlayers.remove(player);
+        if (enable) enabledPlayers.add(player);
+        else enabledPlayers.remove(player);
+    }
+
+
+    public void setPlayerDropsEnabled(Player player, boolean enable)
+    {
+        if (enable) dropsEnabledPlayers.add(player);
+        else dropsEnabledPlayers.remove(player);
     }
 }

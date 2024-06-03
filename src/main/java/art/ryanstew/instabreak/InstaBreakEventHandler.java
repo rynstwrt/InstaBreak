@@ -1,5 +1,6 @@
 package art.ryanstew.instabreak;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -29,11 +30,12 @@ public class InstaBreakEventHandler implements Listener
     @EventHandler
     private void onBlockBreak(BlockBreakEvent event)
     {
-        if (!plugin.playerHasEnabled(event.getPlayer()))
+        Player player = event.getPlayer();
+
+        if (!plugin.playerHasEnabled(player))
             return;
 
-        boolean shouldDropItems = plugin.getConfig().getBoolean("should-drop-items");
-        if (!shouldDropItems)
+        if (!plugin.playerHasDropsEnabled(player))
             event.setDropItems(false);
     }
 }
