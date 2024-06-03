@@ -1,2 +1,4 @@
 # The prefix of the plugin.
-prefix: "&cInstaBreak &7»"
+# If a color/format code is at the start, that color/format
+# will be used to style the help menu header.
+prefix: "&6InstaBreak &7»"

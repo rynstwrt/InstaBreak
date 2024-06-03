@@ -38,22 +38,36 @@ public class InstaBreakCommand implements CommandExecutor
                 colorCode = matcher.group(1);
         }
 
+        boolean isPlayer = sender instanceof Player;
+
         StringBuilder stringBuilder = new StringBuilder();
+        if (!isPlayer)
+            stringBuilder.append("&r\n");
+
         stringBuilder
                 .append("&8[------- ").append(colorCode).append("InstaBreak").append("&8 -------]")
-                .append("\n").append("&8- ").append("&7/instabreak help");
+                .append("\n&8- &7/instabreak help");
 
-        if (sender instanceof Player)
+        if (isPlayer)
         {
             stringBuilder
-                    .append("\n").append("&8- ").append("&7/instabreak toggle")
-                    .append("\n").append("&8- ").append("&7/instabreak <enable/disable>")
-                    .append("\n").append("&8- ").append("&7/instabreak toggledrops")
-                    .append("\n").append("&8- ").append("&7/instabreak <enabledrops/disabledrops>");
+                    .append("\n&8- &7/instabreak <toggle/enable/disable>")
+                    .append("\n&8- &7/instabreak <toggledrops/enabledrops/disabledrops>");
         }
 
         if (sender.hasPermission(RELOAD_PERMISSION))
-            stringBuilder.append("\n").append("&8- ").append("&7/instabreak reload");
+            stringBuilder.append("\n&8- &7/instabreak reload");
+
+        if (isPlayer)
+        {
+            Player player = (Player) sender;
+
+            boolean isEnabled = plugin.playerHasEnabled(player);
+            boolean dropsEnabled = plugin.playerHasDropsEnabled(player);
+            stringBuilder
+                    .append("\n&r\n   &7&lStatus: [").append(isEnabled ? "&a" : "&c").append("&lInstaBreak&7&l] ")
+                    .append("&7&l[").append(dropsEnabled ? "&a" : "&c").append("&lDrops&7&l]");
+        }
 
         return stringBuilder.toString();
     }
@@ -73,21 +87,21 @@ public class InstaBreakCommand implements CommandExecutor
 
     /*
         /instabreak and /instabreak help
-        /instabreak toggle
-        /instabreak <enable/disable>
-        /instabreak toggledrops
-        /instabreak <enabledrops/disabledrops>
+        /instabreak <toggle/enable/disable>
+        /instabreak <toggledrops/enabledrops/disabledrops>
         /instabreak reload
      */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
     {
+        // /instabreak [help]
         if (args.length == 0 || args[0].equalsIgnoreCase("help"))
         {
             plugin.sendFormattedMessage(sender, getCommandHelpMessage(sender), false);
             return true;
         }
 
+        // /instabreak reload
         if (args[0].equalsIgnoreCase("reload") && sender.hasPermission(RELOAD_PERMISSION))
         {
             plugin.reloadConfig();
@@ -101,6 +115,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak toggle
         if (args[0].equalsIgnoreCase("toggle"))
         {
             boolean isEnabled = plugin.playerHasEnabled(player);
@@ -109,6 +124,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak enable
         if (args[0].equalsIgnoreCase("enable"))
         {
             plugin.setPlayerEnabled(player, true);
@@ -116,6 +132,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak disable
         if (args[0].equalsIgnoreCase("disable"))
         {
             plugin.setPlayerEnabled(player, false);
@@ -123,6 +140,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak toggledrops
         if (args[0].equalsIgnoreCase("toggledrops"))
         {
             boolean dropsEnabled = plugin.playerHasDropsEnabled(player);
@@ -131,6 +149,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak enabledrops
         if (args[0].equalsIgnoreCase("enabledrops"))
         {
             plugin.setPlayerDropsEnabled(player, true);
@@ -138,6 +157,7 @@ public class InstaBreakCommand implements CommandExecutor
             return true;
         }
 
+        // /instabreak disabledrops
         if (args[0].equalsIgnoreCase("disabledrops"))
         {
             plugin.setPlayerDropsEnabled(player, false);
