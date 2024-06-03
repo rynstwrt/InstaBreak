@@ -1,0 +1,7 @@
+# The prefix of the plugin.
+prefix: "&cInstaBreak &7»"
+
+
+# Whether breaking blocks with instabreak
+# enabled should drop the block's drops when mined.
+should-drop-items: true

@@ -1,0 +1,20 @@
+name: InstaBreak
+version: '${version}'
+main: art.ryanstew.instabreak.InstaBreak
+api-version: '1.20'
+description: A Minecraft server (Spigot) plugin to instantly break blocks!
+author: RuntimeRyn
+
+commands:
+    instabreak:
+        description: Instantly break blocks!
+        permission: instabreak.use
+        aliases: [instantbreak, ib]
+
+permissions:
+    instabreak.use:
+        description: Permission to use InstaBreak.
+        default: op
+    instabreak.reload:
+        description: Permission to use /instabreak reload.
+        default: op
